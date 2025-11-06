@@ -19,7 +19,6 @@ impl DbPool {
                 "CREATE TABLE IF NOT EXISTS businesses (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
-                address TEXT NOT NULL,
                 latitude REAL NOT NULL,
                 longitude REAL NOT NULL
             )",
