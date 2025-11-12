@@ -45,7 +45,8 @@ impl Business {
         }
         .collect::<Result<Vec<Business>>>()
         .unwrap();
-        return businesses;
+
+        businesses
     }
 
     // self parameter needs to be mutable because id is given by database

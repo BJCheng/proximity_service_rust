@@ -19,14 +19,13 @@ fn main() -> Result<()> {
     // let business = Business::get(56);
     // println!("{:?}", business);
 
-    let businesses = Business::query_all();
-    for business in businesses {
-        println!("==={:?}===", business);
-    }
-    // let quadtree = Quadtree {
-    //     businesses: Vec::new(),
-    // };
-    // quadtree.put(businesses);
+    let mut businesses = Business::query_all();
+    // for business in businesses {
+    //     println!("==={:?}===", business);
+    // }
+    let quadtree = &mut Quadtree::new();
+    quadtree.put(&mut businesses);
+    quadtree.print();
 
     // start the server and listen for http requests
 
