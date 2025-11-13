@@ -1,4 +1,3 @@
-use crate::data::business;
 use crate::data::business::Business;
 use crate::data::business::Direction;
 
@@ -11,7 +10,7 @@ pub struct Quadtree {
 }
 
 impl Quadtree {
-    const MAX_NUMBER_BUSINESS: usize = 4;
+    const MAX_NUMBER_BUSINESS: usize = 1;
 
     pub fn new() -> Self {
         Quadtree {
