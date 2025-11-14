@@ -76,4 +76,8 @@ impl Quadtree {
             south_east.print();
         }
     }
+
+    pub fn search(self: &Self, latitude: u32, longitude: u32) -> Vec<Business> {
+        Vec::new()
+    }
 }

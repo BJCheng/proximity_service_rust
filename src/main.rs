@@ -46,7 +46,21 @@ fn main() -> Result<()> {
             coordinates.get(0).unwrap(),
             coordinates.get(1).unwrap()
         );
+
+        println!("looking for nearby businesses...");
+        let businesses = quadtree.search(0, 1);
+
+        if businesses.len() <= 0 {
+            println!(
+                "no business found with latitude: {}, longitude: {}",
+                &coordinates.get(0).unwrap(),
+                &coordinates.get(1).unwrap()
+            );
+        }
+        for business in &businesses {
+            println!("{}", business.name);
+        }
     }
 
-    Ok(())
+    // Ok(())
 }
