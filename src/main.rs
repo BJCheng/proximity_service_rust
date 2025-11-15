@@ -2,10 +2,7 @@ pub mod data;
 pub mod db_pool;
 mod search;
 
-use std::{
-    env,
-    io::{self, Write},
-};
+use std::io::{self, Write};
 
 use rusqlite::Result;
 
@@ -16,7 +13,7 @@ fn main() -> Result<()> {
 
     let mut businesses = Business::query_all();
 
-    let quadtree = &mut Quadtree::new();
+    let quadtree = &mut Quadtree::new(-180, 180, 90, -90);
     quadtree.put(&mut businesses);
     quadtree.print();
 
@@ -31,33 +28,32 @@ fn main() -> Result<()> {
             .read_line(&mut input)
             .unwrap_or_else(|e| panic!("error while parsing user input: {}", e));
 
-        let coordinates: Vec<u32> = input
+        let coordinates: Vec<i32> = input
             .split_whitespace()
-            .map(|s| s.parse::<u32>())
-            .collect::<Result<Vec<u32>, _>>()
+            .map(|s| s.parse::<i32>())
+            .collect::<Result<Vec<i32>, _>>()
             .unwrap();
 
         if coordinates.len() != 2 {
             panic!("user input should contains exact two numbers");
         }
 
-        println!(
-            "latitude: {}, longitude: {}",
-            coordinates.get(0).unwrap(),
-            coordinates.get(1).unwrap()
-        );
+        let longitude = coordinates.get(0).unwrap();
+        let latitude = coordinates.get(1).unwrap();
+        println!("longitude: {}, latitude: {}", longitude, latitude);
 
         println!("looking for nearby businesses...");
-        let businesses = quadtree.search(0, 1);
+        let businesses = quadtree.search(*longitude, *latitude); // look for alternative to
+                                                                 // dereference
 
         if businesses.len() <= 0 {
             println!(
-                "no business found with latitude: {}, longitude: {}",
+                "no business found with longitude: {}, latitude: {}",
                 &coordinates.get(0).unwrap(),
                 &coordinates.get(1).unwrap()
             );
         }
-        for business in &businesses {
+        for business in businesses {
             println!("{}", business.name);
         }
     }
