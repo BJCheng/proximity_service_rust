@@ -107,10 +107,10 @@ impl Quadtree {
 
     // fn next_quadtree(latitude: i32, longitude: i32) -> &Quadtree {}
 
-    // so I will need to find the leaf node first and traversing upward?
-    // wondering if there is a way I can start from the leaf node
     pub fn search(self: &Self, longitude: i32, latitude: i32) -> &[Business] {
-        // todo: will have to store result businesses in a variable
+        // todo 1: find the leaf first
+        //         otherwise will always return the business in top quadtree node
+        // todo 2: will have to store result businesses in a variable
         // return this result variable once the number of businesses meets requirement
         if self.businesses.len() >= 1 {
             return &self.businesses;
